@@ -1,3 +1,3 @@
 public enum FileType {
-    PDF, TXT, JAVA,
+    PDF, TXT, JAVA
 }
