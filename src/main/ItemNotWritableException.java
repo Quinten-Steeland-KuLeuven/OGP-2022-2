@@ -6,7 +6,7 @@ import be.kuleuven.cs.som.annotate.*;
  * @author 	Tommy Messelis
  * @version	2.2
  */
-public class FileNotWritableException extends RuntimeException {
+public class ItemNotWritableException extends RuntimeException {
 
 	/**
 	 * Required because this class inherits from Exception
@@ -28,7 +28,7 @@ public class FileNotWritableException extends RuntimeException {
 	 * 			is set to the given file.
 	 * 			| new.getFile() == file
 	 */
-	public FileNotWritableException(File file) {
+	public ItemNotWritableException(File file) {
 		this.file = file;
 	}
 	
