@@ -29,6 +29,11 @@ public abstract class namedItem {
         setName(name);
     }
 
+    /**
+     * Return the name of this file.
+     * @note		See Coding Rule 19 for the Basic annotation.
+     */
+    @Raw @Basic
     public String getName() {
         return name;
     }
