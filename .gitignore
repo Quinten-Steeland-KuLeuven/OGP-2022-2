@@ -4,6 +4,8 @@
 #temp directory
 tmp/
 
+.attach_pid*
+
 # Compiled class file
 *.class
 
