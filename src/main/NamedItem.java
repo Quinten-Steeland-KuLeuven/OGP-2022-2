@@ -23,6 +23,10 @@ public abstract class NamedItem {
         setName(name);
     }
 
+    public NamedItem(String name, Directory todo) {
+        //TODO parentDirectory
+    }
+
     /**
      * Return the name of this file.
      * @note		See Coding Rule 19 for the Basic annotation.

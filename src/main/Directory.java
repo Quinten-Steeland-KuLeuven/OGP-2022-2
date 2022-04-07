@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
-public class Directory extends namedWritableItem {
+public class Directory extends NamedWritableItem {
 
     private boolean isRoot = false;
-    private ArrayList<namedItem> contents = new ArrayList<>();
+    private ArrayList<NamedItem> contents = new ArrayList<>();
 
     public Directory(Directory dir, String name, boolean writable) {
         super(name, writable);
