@@ -128,7 +128,11 @@ public class namedWritableItem extends namedItem {
 
     private Directory parentDirectory = null;
 
-    private void setParentDir(Directory parentDirectory) {
+    protected void setParentDir(Directory parentDirectory) {
         this.parentDirectory = parentDirectory;
+    }
+
+    protected Directory getParentDirectory() {
+        return parentDirectory;
     }
 }
