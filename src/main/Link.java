@@ -1,9 +1,9 @@
-public class Link extends namedItem {
+public class Link extends NamedItem {
 
     /**
      * Variable of the item the link points at.
      */
-    private final namedWritableItem linkedItem;
+    private final NamedWritableItem linkedItem;
 
     /**
      * Variable for tracking if a link is valid.
@@ -19,7 +19,7 @@ public class Link extends namedItem {
      * @param   linkedItem
      *          The item the link links to.
      */
-    public Link(Directory dir, String name, namedWritableItem linkedItem) {
+    public Link(Directory dir, String name, NamedWritableItem linkedItem) {
         super(name, dir);
         this.linkedItem = linkedItem;
     }

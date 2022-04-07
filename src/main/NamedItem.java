@@ -5,7 +5,7 @@ import be.kuleuven.cs.som.annotate.Raw;
 
 import java.util.Date;
 
-public abstract class namedItem {
+public abstract class NamedItem {
 
     /**
      * Variable referencing the name of this file.
@@ -19,7 +19,7 @@ public abstract class namedItem {
     private final Date creationTime = new Date();
 
 
-    public namedItem (String name) {
+    public NamedItem(String name) {
         setName(name);
     }
 
