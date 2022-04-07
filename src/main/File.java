@@ -20,7 +20,7 @@ import java.util.Date;
  * 
  * @note		See Coding Rule 48 for more info on the encapsulation of class invariants.
  */
-public class File {
+public class File extends namedWritableItem {
 
     /**********************************************************
      * Constructors
@@ -56,9 +56,8 @@ public class File {
      */
 	@Raw
 	public File(String name, int size, boolean writable) {
-        setName(name);
+        super(name, writable);
         setSize(size);
-        setWritable(writable);
     }
 
     /**
@@ -162,7 +161,7 @@ public class File {
      *          This file is not writable
      *          | ! isWritable() 
      */
-    public void changeName(String name) throws FileNotWritableException {
+    /*public void changeName(String name) throws FileNotWritableException {
         if (isWritable()) {
             if (isValidName(name)){
             	setName(name);
@@ -171,7 +170,7 @@ public class File {
         } else {
             throw new FileNotWritableException(this);
         }
-    }
+    }*/
 
     
     
@@ -245,7 +244,7 @@ public class File {
      * @effect  The size of this file is increased with the given delta.
      *          | changeSize(delta)
      */
-    public void enlarge(int delta) throws FileNotWritableException {
+    public void enlarge(int delta) throws ItemNotWritableException {
         changeSize(delta);
     }
 
@@ -260,7 +259,7 @@ public class File {
      * @effect  The size of this file is decreased with the given delta.
      *          | changeSize(-delta)
      */
-    public void shorten(int delta) throws FileNotWritableException {
+    public void shorten(int delta) throws ItemNotWritableException {
         changeSize(-delta);
     }
 
@@ -276,17 +275,17 @@ public class File {
      *         | setSize(getSize()+delta)
      * @effect The modification time is updated.
      *         | setModificationTime()
-     * @throws FileNotWritableException(this)
+     * @throws ItemNotWritableException(this)
      *         This file is not writable.
      *         | ! isWritable()
      */
     @Model 
-    private void changeSize(int delta) throws FileNotWritableException{
+    private void changeSize(int delta) throws ItemNotWritableException{
         if (isWritable()) {
             setSize(getSize()+delta);
             setModificationTime();            
         }else{
-        	throw new FileNotWritableException(this);
+        	throw new ItemNotWritableException(this);
         }
     }
 
@@ -447,5 +446,5 @@ public class File {
     public void setWritable(boolean isWritable) {
         this.isWritable = isWritable;
     }
-    
+
 }
