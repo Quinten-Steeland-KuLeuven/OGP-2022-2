@@ -16,7 +16,7 @@ public class ItemNotWritableException extends RuntimeException {
 	/**
 	 * Variable referencing the item to which change was denied.
 	 */
-	private final namedWritableItem item;
+	private final NamedWritableItem item;
 
 	/**
 	 * Initialize this new item not writable exception involving the
@@ -28,7 +28,7 @@ public class ItemNotWritableException extends RuntimeException {
 	 * 			is set to the given item.
 	 * 			| new.getItem() == item
 	 */
-	public ItemNotWritableException(namedWritableItem item) {
+	public ItemNotWritableException(NamedWritableItem item) {
 		this.item = item;
 	}
 	
@@ -36,7 +36,7 @@ public class ItemNotWritableException extends RuntimeException {
 	 * Return the file involved in this file not writable exception.
 	 */
 	@Basic @Immutable
-	public namedWritableItem getItem() {
+	public NamedWritableItem getItem() {
 		return item;
 	}
 	

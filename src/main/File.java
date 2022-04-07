@@ -20,7 +20,7 @@ import java.util.Date;
  * 
  * @note		See Coding Rule 48 for more info on the encapsulation of class invariants.
  */
-public class File extends namedWritableItem {
+public class File extends NamedWritableItem {
 
     /**********************************************************
      * Constructors

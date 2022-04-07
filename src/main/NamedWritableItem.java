@@ -4,9 +4,9 @@ import be.kuleuven.cs.som.annotate.Raw;
 
 import java.util.Date;
 
-public class namedWritableItem extends namedItem {
+public abstract class NamedWritableItem extends NamedItem {
 
-    public namedWritableItem (String name, boolean isWritable) {
+    public NamedWritableItem(String name, boolean isWritable) {
         super(name);
         setWritable(isWritable);
     }
