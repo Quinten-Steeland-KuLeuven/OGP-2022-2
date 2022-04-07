@@ -122,4 +122,13 @@ public class namedWritableItem extends namedItem {
         modificationTime = new Date();
     }
 
+    /**********************************************************
+     * parentDirectory
+     **********************************************************/
+
+    private Directory parentDirectory = null;
+
+    private void setParentDir(Directory parentDirectory) {
+        this.parentDirectory = parentDirectory;
+    }
 }
