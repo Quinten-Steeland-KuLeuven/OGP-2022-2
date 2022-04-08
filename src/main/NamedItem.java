@@ -151,4 +151,17 @@ public abstract class NamedItem {
         }
     }
 
+    //TODO docs
+    public String getAbsolutePath() {
+        //TODO account for file extension
+        String path = this.getName();
+        Directory parDir = this.parentDirectory;
+        path = parDir.getName() + "/" + path;
+        while (!parDir.isRoot()) {
+                parDir = parDir.getParentDirectory();
+                path = parDir.getName() + "/" + path;
+            }
+        return "/" + path;
+    }
+
 }
