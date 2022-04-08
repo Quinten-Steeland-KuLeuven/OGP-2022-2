@@ -18,13 +18,13 @@ public abstract class NamedItem {
      */
     private final Date creationTime = new Date();
 
-
     public NamedItem(String name) {
         setName(name);
     }
 
-    public NamedItem(String name, Directory todo) {
-        //TODO parentDirectory
+    public NamedItem(String name, Directory dir) {
+        setName(name);
+        setParentDir(dir);
     }
 
     /**
@@ -83,6 +83,7 @@ public abstract class NamedItem {
      */
     @Model
     private static String getDefaultName() {
+        //TODO: check for conflicting names in parent directory -> change default name to avoid conflicts
         return "new_item";
     }
 
@@ -114,5 +115,53 @@ public abstract class NamedItem {
                 (date.getTime()<=System.currentTimeMillis());
     }
 
+
+    /**********************************************************
+     * parentDirectory
+     **********************************************************/
+
+    private Directory parentDirectory = null;
+
+    protected void setParentDir(Directory parentDirectory) {
+        this.parentDirectory = parentDirectory;
+    }
+
+    protected Directory getParentDirectory() {
+        return parentDirectory;
+    }
+
+
+
+    //TODO docs
+    public Directory getRoot() {
+        Directory rootDir = this.getParentDirectory();
+        while (!rootDir.isRoot()) {
+            rootDir = rootDir.getParentDirectory();
+        }
+        return rootDir;
+    }
+
+    //TODO docs
+    public boolean isDirectOrIndirectChildOf(Directory dir) {
+        Directory parDir = getParentDirectory();
+        while (true) {
+            if (parDir.equals(dir)) return true;
+            else if (parDir.isRoot()) return false;
+            parDir = parDir.getParentDirectory();
+        }
+    }
+
+    //TODO docs
+    public String getAbsolutePath() {
+        //TODO account for file extension
+        String path = this.getName();
+        Directory parDir = this.parentDirectory;
+        path = parDir.getName() + "/" + path;
+        while (!parDir.isRoot()) {
+                parDir = parDir.getParentDirectory();
+                path = parDir.getName() + "/" + path;
+            }
+        return "/" + path;
+    }
 
 }
