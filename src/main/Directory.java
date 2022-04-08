@@ -35,7 +35,7 @@ public class Directory extends NamedWritableItem {
         return contents;
     }
 
-    public void addNamedItem(NamedItem item) throws ItemNotWritableException, IllegalArgumentException {
+    protected void addNamedItem(NamedItem item) throws ItemNotWritableException, IllegalArgumentException {
         if(canAddItem(item)) insertItem(item);
     }
 

@@ -23,8 +23,8 @@ public abstract class NamedItem {
     }
 
     public NamedItem(Directory dir, String name) {
-        setParentDir(dir);
         setName(name);
+        dir.addNamedItem(this);
     }
 
     /**

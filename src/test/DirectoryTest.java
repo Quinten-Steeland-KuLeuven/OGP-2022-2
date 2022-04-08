@@ -47,10 +47,6 @@ public class DirectoryTest {
         before = new Date();
         dirStr = new Directory(VALID_NAME);
         after = new Date();
-
-        file1 = new File("file1");
-        file2 = new File("file2");
-
     }
 
     @Test
@@ -120,16 +116,17 @@ public class DirectoryTest {
     @Test
     public void testAddNamedItem() {
         dirStr = new Directory(VALID_NAME);
-        dirStr.addNamedItem(file1);
-        dirStr.addNamedItem(file2);
+        file1 = new File(dirStr, "file1", FileType.TXT);
+        file2 = new File(dirStr, "file2", FileType.TXT);
         assertThrows(IllegalArgumentException.class,
-                () -> dirStr.addNamedItem(file1)
-        );
+                () -> {
+                    final File file3 = file2;
+                    dirStr.addNamedItem(file3);
+                });
 
-        File file3 = new File("file2");
         assertThrows(IllegalArgumentException.class,
-                () -> dirStr.addNamedItem(file3)
-        );
+                () -> {final File file4 = new File(dirStr, "file2", FileType.JAVA);
+        });
 
         //TODO add dir loop test
     }
