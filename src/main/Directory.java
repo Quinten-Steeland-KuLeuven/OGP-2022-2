@@ -15,19 +15,26 @@ public class Directory extends NamedWritableItem {
     public Directory(Directory dir, String name) {
         super(name, true);
         setParentDir(dir);
+
+        setIsRoot(false);
     }
 
-    public  Directory(String name, boolean writable) {
+    public Directory(String name, boolean writable) {
         super(name, writable);
         setIsRoot(true);
+
+        setParentDir(this);
     }
 
     public  Directory(String name) {
         super(name, true);
         setIsRoot(true);
+
+        setParentDir(this);
     }
 
     private void setIsRoot(boolean isRoot) {
         this.isRoot = isRoot;
     }
+
 }

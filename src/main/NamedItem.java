@@ -18,13 +18,13 @@ public abstract class NamedItem {
      */
     private final Date creationTime = new Date();
 
-
     public NamedItem(String name) {
         setName(name);
     }
 
-    public NamedItem(String name, Directory todo) {
-        //TODO parentDirectory
+    public NamedItem(String name, Directory dir) {
+        setName(name);
+        setParentDir(dir);
     }
 
     /**
@@ -113,6 +113,32 @@ public abstract class NamedItem {
     public static boolean isValidCreationTime(Date date) {
         return 	(date!=null) &&
                 (date.getTime()<=System.currentTimeMillis());
+    }
+
+
+    /**********************************************************
+     * parentDirectory
+     **********************************************************/
+
+    private Directory parentDirectory = null;
+
+    protected void setParentDir(Directory parentDirectory) {
+        this.parentDirectory = parentDirectory;
+    }
+
+    protected Directory getParentDirectory() {
+        return parentDirectory;
+    }
+
+
+
+
+    public Directory getRoot() {
+        Directory rootDir = this.getParentDirectory();
+        while (!rootDir.equals(rootDir.getParentDirectory())) {
+            rootDir = rootDir.getParentDirectory();
+        }
+        return rootDir;
     }
 
 
