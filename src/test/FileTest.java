@@ -21,8 +21,8 @@ public class FileTest {
 	
 	@Before
 	public void setUpFixture(){
-
 		containingDir = new Directory("Dir", true);
+
 		timeBeforeConstruction = new Date();
 		fileStringIntBoolean = new File(containingDir, "bestand.txt",100, true, FileType.TXT);
 		fileString = new File(containingDir, "bestand.txt", FileType.TXT);
@@ -31,6 +31,30 @@ public class FileTest {
 		timeBeforeConstructionNotWritable = new Date();
 		fileNotWritable = new File(containingDir, "bestand.txt",100,false, FileType.TXT);
 		timeAfterConstructionNotWritable = new Date();
+	}
+
+	@Test
+	public void testConstructorTests() {
+		Directory dir2 = new Directory("Dir_");
+		File file1 = new File(containingDir, "Name?", 420, true, FileType.TXT);
+		File file2 = new File(dir2, "Test_", 42, false, FileType.PDF);
+		File file3 = new File(dir2, ".-_", FileType.JAVA);
+
+		assertEquals(file1.getParentDirectory(), containingDir);
+		assertEquals(file1.getName(), NamedItem.getDefaultName());
+		assertEquals(file1.getSize(), 420);
+		assertTrue(file1.isWritable());
+		assertEquals(file1.getFileType(), FileType.TXT);
+		assertEquals(file2.getParentDirectory(), dir2);
+		assertEquals(file2.getName(), "Test_");
+		assertEquals(file2.getSize(), 42);
+		assertFalse(file2.isWritable());
+		assertEquals(file2.getFileType(), FileType.PDF);
+		assertEquals(file3.getParentDirectory(), dir2);
+		assertEquals(file3.getName(), ".-_");
+		assertEquals(file3.getSize(), 0);
+		assertTrue(file3.isWritable());
+		assertEquals(file3.getFileType(), FileType.JAVA);
 	}
 
 	@Test

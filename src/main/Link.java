@@ -26,6 +26,7 @@ public class Link extends NamedItem {
     public Link(Directory dir, String name, NamedWritableItem linkedItem) {
         super(dir, name);
         this.linkedItem = linkedItem;
+        this.isValidLink = true;
     }
 
     /**

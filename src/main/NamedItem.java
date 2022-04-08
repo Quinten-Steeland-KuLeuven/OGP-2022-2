@@ -82,7 +82,7 @@ public abstract class NamedItem {
      *         | isValidName(result)
      */
     @Model
-    private static String getDefaultName() {
+    protected static String getDefaultName() {
         //TODO: check for conflicting names in parent directory -> change default name to avoid conflicts
         return "new_item";
     }
