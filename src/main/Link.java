@@ -24,7 +24,7 @@ public class Link extends NamedItem {
      */
     @Raw
     public Link(Directory dir, String name, NamedWritableItem linkedItem) {
-        super(name, dir);
+        super(dir, name);
         this.linkedItem = linkedItem;
     }
 

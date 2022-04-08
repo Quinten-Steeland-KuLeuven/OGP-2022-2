@@ -16,6 +16,11 @@ public abstract class NamedWritableItem extends NamedItem {
      */
     private boolean isWritable = true;
 
+    public NamedWritableItem(Directory dir, String name, boolean writable) {
+        super(dir, name);
+        setWritable(writable);
+    }
+
     /**
      * Check whether this file is writable.
      */

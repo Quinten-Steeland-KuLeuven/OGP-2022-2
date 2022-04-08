@@ -22,9 +22,9 @@ public abstract class NamedItem {
         setName(name);
     }
 
-    public NamedItem(String name, Directory dir) {
-        setName(name);
+    public NamedItem(Directory dir, String name) {
         setParentDir(dir);
+        setName(name);
     }
 
     /**
@@ -154,12 +154,12 @@ public abstract class NamedItem {
     //TODO docs
     public String getAbsolutePath() {
         //TODO account for file extension
-        String path = this.getName();
+        StringBuilder path = new StringBuilder(this.getName());
         Directory parDir = this.parentDirectory;
-        path = parDir.getName() + "/" + path;
+        path.insert(0, parDir.getName() + "/");
         while (!parDir.isRoot()) {
                 parDir = parDir.getParentDirectory();
-                path = parDir.getName() + "/" + path;
+                path.insert(0, parDir.getName() + "/");
             }
         return "/" + path;
     }
