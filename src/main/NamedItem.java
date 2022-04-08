@@ -153,10 +153,10 @@ public abstract class NamedItem {
 
     //TODO docs
     public String getAbsolutePath() {
-        //TODO account for file extension
         StringBuilder path = new StringBuilder(this.getName());
         Directory parDir = this.parentDirectory;
         path.insert(0, parDir.getName() + "/");
+        if (this instanceof File) path.append(".").append(((File) this).getFileType());
         while (!parDir.isRoot()) {
                 parDir = parDir.getParentDirectory();
                 path.insert(0, parDir.getName() + "/");
