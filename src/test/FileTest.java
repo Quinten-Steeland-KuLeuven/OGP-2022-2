@@ -16,17 +16,45 @@ public class FileTest {
 	
 	File fileNotWritable;
 	Date timeBeforeConstructionNotWritable, timeAfterConstructionNotWritable;
+
+	Directory containingDir;
 	
 	@Before
 	public void setUpFixture(){
+		containingDir = new Directory("Dir", true);
+
 		timeBeforeConstruction = new Date();
-		fileStringIntBoolean = new File("bestand.txt",100, true);
-		fileString = new File("bestand.txt");
+		fileStringIntBoolean = new File(containingDir, "bestand.txt",100, true, FileType.TXT);
+		fileString = new File(containingDir, "bestand.txt", FileType.TXT);
 		timeAfterConstruction = new Date();
 
 		timeBeforeConstructionNotWritable = new Date();
-		fileNotWritable = new File("bestand.txt",100,false);
+		fileNotWritable = new File(containingDir, "bestand.txt",100,false, FileType.TXT);
 		timeAfterConstructionNotWritable = new Date();
+	}
+
+	@Test
+	public void testConstructorTests() {
+		Directory dir2 = new Directory("Dir_");
+		File file1 = new File(containingDir, "Name?", 420, true, FileType.TXT);
+		File file2 = new File(dir2, "Test_", 42, false, FileType.PDF);
+		File file3 = new File(dir2, ".-_", FileType.JAVA);
+
+		assertEquals(file1.getParentDirectory(), containingDir);
+		assertEquals(file1.getName(), NamedItem.getDefaultName());
+		assertEquals(file1.getSize(), 420);
+		assertTrue(file1.isWritable());
+		assertEquals(file1.getFileType(), FileType.TXT);
+		assertEquals(file2.getParentDirectory(), dir2);
+		assertEquals(file2.getName(), "Test_");
+		assertEquals(file2.getSize(), 42);
+		assertFalse(file2.isWritable());
+		assertEquals(file2.getFileType(), FileType.PDF);
+		assertEquals(file3.getParentDirectory(), dir2);
+		assertEquals(file3.getName(), ".-_");
+		assertEquals(file3.getSize(), 0);
+		assertTrue(file3.isWritable());
+		assertEquals(file3.getFileType(), FileType.JAVA);
 	}
 
 	@Test
@@ -42,7 +70,8 @@ public class FileTest {
 	@Test
 	public void testFileStringIntBoolean_IllegalCase() {
 		timeBeforeConstruction = new Date();
-		fileStringIntBoolean = new File("$IllegalName$",File.getMaximumSize(),false);
+		fileStringIntBoolean = new File(
+				containingDir, "$IllegalName$",File.getMaximumSize(), false, FileType.TXT);
 		timeAfterConstruction = new Date();
 		assertTrue(File.isValidName(fileStringIntBoolean.getName()));
 		assertEquals(File.getMaximumSize(),fileStringIntBoolean.getSize());
@@ -65,7 +94,7 @@ public class FileTest {
 	@Test
 	public void testFileString_IllegalCase() {
 		timeBeforeConstruction = new Date();
-		fileString = new File("$IllegalName$");
+		fileString = new File(containingDir, "$IllegalName$", FileType.TXT);
 		timeAfterConstruction = new Date();
 		assertTrue(File.isValidName(fileString.getName()));
 		assertEquals(0,fileString.getSize());
@@ -129,7 +158,7 @@ public class FileTest {
 
 	@Test
 	public void testEnlarge_LegalCase() {
-		File file = new File("bestand.txt",File.getMaximumSize()-1,true);
+		File file = new File(containingDir, "bestand.txt",File.getMaximumSize()-1,true, FileType.TXT);
 		Date timeBeforeEnlarge = new Date();
 		file.enlarge(1);
 		Date timeAfterEnlarge = new Date();		
@@ -173,13 +202,13 @@ public class FileTest {
 	}
 	
 	@Test
-	public void testcanHaveAsModificationTime_LegalCase() {
+	public void testCanHaveAsModificationTime_LegalCase() {
 		assertTrue(fileString.canHaveAsModificationTime(null));
 		assertTrue(fileString.canHaveAsModificationTime(new Date()));
 	}
 	
 	@Test
-	public void testcanHaveAsModificationTime_IllegalCase() {
+	public void testCanHaveAsModificationTime_IllegalCase() {
 		assertFalse(fileString.canHaveAsModificationTime(new Date(timeAfterConstruction.getTime() - 1000*60*60)));
 		assertFalse(fileString.canHaveAsModificationTime(new Date(System.currentTimeMillis() + 1000*60*60)));
 	}
@@ -187,9 +216,9 @@ public class FileTest {
 	@Test
 	public void testHasOverlappingUsePeriod_UnmodifiedFiles() {
 		// one = implicit argument ; other = explicit argument
-		File one = new File("one");
+		File one = new File(containingDir, "one", FileType.TXT);
 		sleep(); // sleep() to be sure that one.getCreationTime() != other.getCreationTime()
-		File other = new File("other");
+		File other = new File(containingDir, "other", FileType.TXT);
 		
 		//1 Test unmodified case
 		assertFalse(one.hasOverlappingUsePeriod(other));
@@ -200,7 +229,7 @@ public class FileTest {
 		
 		//3 Test other unmodified case
 		//so re-initialise the other file
-		other = new File("other");
+		other = new File(containingDir, "other", FileType.TXT);
 		one.enlarge(File.getMaximumSize());
 		assertFalse(one.hasOverlappingUsePeriod(other));
 		
@@ -210,22 +239,22 @@ public class FileTest {
 	public void testHasOverlappingUsePeriod_ModifiedNoOverlap() {
 		// one = implicit argument ; other = explicit argument
 		File one, other;
-		one = new File("one");
+		one = new File(containingDir, "one", FileType.TXT);
 		sleep(); // sleep() to be sure that one.getCreationTime() != other.getCreationTime()
-		other = new File("other");
+		other = new File(containingDir, "other", FileType.TXT);
 		
 		//1 Test one created and modified before other created and modified case
 		one.enlarge(File.getMaximumSize());
         sleep();
         //re-initialise the other
-        other = new File("other");
+        other = new File(containingDir, "other", FileType.TXT);
         other.enlarge(File.getMaximumSize());
 	    assertFalse(one.hasOverlappingUsePeriod(other));
 	    
 	    //2 Test other created and modified before one created and modified
 		other.enlarge(File.getMaximumSize());
         sleep();
-        one = new File("one");
+        one = new File(containingDir, "one", FileType.TXT);
         one.enlarge(File.getMaximumSize());
         assertFalse(one.hasOverlappingUsePeriod(other));
 	
@@ -236,9 +265,9 @@ public class FileTest {
 		// one = implicit argument ; other = explicit argument
 		//A Test one created before other created before one modified before other modified
 	    File one, other;
-		one = new File("one");
+		one = new File(containingDir, "one", FileType.TXT);
 		sleep(); // sleep() to be sure that one.getCreationTime() != other.getCreationTime()
-		other = new File("other");
+		other = new File(containingDir, "other", FileType.TXT);
 	
 		one.enlarge(File.getMaximumSize());
         sleep();
@@ -251,9 +280,9 @@ public class FileTest {
 		// one = implicit argument ; other = explicit argument
 		//B Test one created before other created before other modified before one modified
        	File one, other;
-		one = new File("one");
+		one = new File(containingDir, "one", FileType.TXT);
 		sleep(); // sleep() to be sure that one.getCreationTime() != other.getCreationTime()
-		other = new File("other");
+		other = new File(containingDir, "other", FileType.TXT);
 	
 		other.enlarge(File.getMaximumSize());
         sleep();
@@ -266,9 +295,9 @@ public class FileTest {
 		// one = implicit argument ; other = explicit argument
 		//C Test other created before one created before other modified before one modified
         File one, other;
-		other = new File("other");
+		other = new File(containingDir, "other", FileType.TXT);
 		sleep(); // sleep() to be sure that one.getCreationTime() != other.getCreationTime()
-		one = new File("one");
+		one = new File(containingDir, "one", FileType.TXT);
 		
 		other.enlarge(File.getMaximumSize());
         sleep();
@@ -281,9 +310,9 @@ public class FileTest {
 		// one = implicit argument ; other = explicit argument
 		//D Test other created before one created before one modified before other modified
 		File one, other;
-		other = new File("one");
+		other = new File(containingDir, "one", FileType.TXT);
 		sleep(); // sleep() to be sure that one.getCreationTime() != other.getCreationTime()
-		one = new File("other");
+		one = new File(containingDir, "other", FileType.TXT);
 	
 		one.enlarge(File.getMaximumSize());
         sleep();

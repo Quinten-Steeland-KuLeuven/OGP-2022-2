@@ -22,9 +22,9 @@ public abstract class NamedItem {
         setName(name);
     }
 
-    public NamedItem(String name, Directory dir) {
-        setName(name);
+    public NamedItem(Directory dir, String name) {
         setParentDir(dir);
+        setName(name);
     }
 
     /**
@@ -82,7 +82,7 @@ public abstract class NamedItem {
      *         | isValidName(result)
      */
     @Model
-    private static String getDefaultName() {
+    protected static String getDefaultName() {
         //TODO: check for conflicting names in parent directory -> change default name to avoid conflicts
         return "new_item";
     }
@@ -153,13 +153,13 @@ public abstract class NamedItem {
 
     //TODO docs
     public String getAbsolutePath() {
-        //TODO account for file extension
-        String path = this.getName();
+        StringBuilder path = new StringBuilder(this.getName());
         Directory parDir = this.parentDirectory;
-        path = parDir.getName() + "/" + path;
+        path.insert(0, parDir.getName() + "/");
+        if (this instanceof File) path.append(".").append(((File) this).getFileType());
         while (!parDir.isRoot()) {
                 parDir = parDir.getParentDirectory();
-                path = parDir.getName() + "/" + path;
+                path.insert(0, parDir.getName() + "/");
             }
         return "/" + path;
     }

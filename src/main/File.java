@@ -54,10 +54,13 @@ public class File extends NamedWritableItem {
      * 			E.g. the name is defaulted to null, which is not allowed, 
      * 			thus the object is in a raw state upon entry of the constructor.
      */
+    //TODO update docs
 	@Raw
-	public File(String name, int size, boolean writable) {
-        super(name, writable);
+	public File(Directory dir, String name, int size, boolean writable, FileType type) {
+        super(dir, name, writable);
         setSize(size);
+        setWritable(writable);
+        this.fileType = type;
     }
 
     /**
@@ -69,12 +72,12 @@ public class File extends NamedWritableItem {
      * 			and true writability
      *         | this(name,0,true)
      */
+
+    //TODO update docs
 	@Raw
-    public File(String name) {
-        this(name,0,true);
+    public File(Directory dir, String name, FileType type)  {
+        this(dir, name, 0, true, type);
     }
-    
-    
     
     /**********************************************************
      * name - total programming
@@ -95,17 +98,18 @@ public class File extends NamedWritableItem {
         return (name != null && name.matches("[a-zA-Z_0-9.-]+"));
     }
     
-    /**
+    /* TODO do we need this? /**
      * Return the name for a new file which is to be used when the
      * given name is not valid.
      *
      * @return   A valid file name.
      *         | isValidName(result)
-     */
+     *
     @Model
     private static String getDefaultName() {
         return "new_file";
     }
+    */
 
     /**********************************************************
      * size - nominal programming
@@ -286,5 +290,15 @@ public class File extends NamedWritableItem {
         	      getModificationTime().before(other.getCreationTime()) ) &&
         	   ! (other.getCreationTime().before(getCreationTime()) && 
         	      other.getModificationTime().before(getCreationTime()) );
+    }
+
+
+    //TODO docs
+    private final FileType fileType;
+
+    //TODO docs
+    @Basic
+    public FileType getFileType() {
+        return fileType;
     }
 }
