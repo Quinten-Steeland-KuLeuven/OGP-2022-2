@@ -10,11 +10,14 @@ import org.junit.*;
  */
 public class DirectoryTest {
 
-    // name
     Date before, after;
     Directory wrongName, dirStr;
     final String VALID_NAME = "Valid_dir-name1";
-    final String INVALID_NAME = "Valid_dir.txt";
+    final String INVALID_SYMBOL_NAME = "Valid_dir.txt";
+    final String INVALID_EMPTY_NAME = "";
+    final String INVALID_NULL_NAME = null;
+
+    // name
     // times (mod and creation)
     // isWritable
     // isRoot
@@ -41,18 +44,36 @@ public class DirectoryTest {
     }
 
     @Test
-    public void testCorrectName_LegalCase() {
-        assertEquals(VALID_NAME, dirStr.getName());
-
+    public void testIsValidName_LegalCase() {
+        assertTrue(Directory.isValidName(VALID_NAME));
     }
 
     @Test
-    public void testCorrectName_ilLegalCase() {
-        before = new Date();
-        dirStr = new Directory(INVALID_NAME);
-        after = new Date();
-        assertNotEquals(INVALID_NAME, dirStr.getName());
+    public void testIsValidName_IllegalCase() {
+        assertFalse(Directory.isValidName(INVALID_SYMBOL_NAME));
+        assertFalse(Directory.isValidName(INVALID_EMPTY_NAME));
+        assertFalse(Directory.isValidName(INVALID_NULL_NAME));
+    }
 
+    @Test
+    public void testDirStr_LegalCase() {
+        assertEquals(VALID_NAME, dirStr.getName());
+        assertTrue(dirStr.isWritable());
+        assertTrue(dirStr.isRoot());
+        assertNull(dirStr.getParentDirectory());
+        assertNull(dirStr.getModificationTime());
+        assertFalse(before.after(dirStr.getCreationTime()));
+        assertFalse(dirStr.getCreationTime().after(after));
+    }
+
+    @Test
+    public void testDirStr_IllegalCase() {
+        before = new Date();
+        dirStr = new Directory(INVALID_SYMBOL_NAME);
+        after = new Date();
+        assertTrue(Directory.isValidName(dirStr.getName()));
+        assertFalse(before.after(dirStr.getCreationTime()));
+        assertFalse(dirStr.getCreationTime().after(after));
     }
 
 
