@@ -47,9 +47,6 @@ public class Link extends NamedItem {
         return isValidLink;
     }
 
-    private void setValidLink(boolean validLink) {
-        isValidLink = validLink;
-    }
 
     public boolean isLinkStillValid() {
         if ( /*TODO: valid link */ true) {

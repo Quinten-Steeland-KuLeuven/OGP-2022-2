@@ -6,19 +6,26 @@ import java.util.Date;
 
 public abstract class NamedWritableItem extends NamedItem {
 
-    public NamedWritableItem(String name, boolean isWritable) {
-        super(name);
-        setWritable(isWritable);
-    }
-
     /**
      * Variable registering whether or not this file is writable.
      */
     private boolean isWritable = true;
 
+    /**
+     *
+     * @param dir
+     * @param name
+     * @param writable
+     */
     public NamedWritableItem(Directory dir, String name, boolean writable) {
         super(dir, name);
         setWritable(writable);
+    }
+
+
+    public NamedWritableItem(String name, boolean isWritable) {
+        super(name);
+        setWritable(isWritable);
     }
 
     /**
