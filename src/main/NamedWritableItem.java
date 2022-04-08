@@ -133,5 +133,4 @@ public abstract class NamedWritableItem extends NamedItem {
     protected void setModificationTime() {
         modificationTime = new Date();
     }
-
 }

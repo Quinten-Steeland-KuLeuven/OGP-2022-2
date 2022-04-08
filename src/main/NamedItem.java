@@ -115,6 +115,9 @@ public abstract class NamedItem {
                 (date.getTime()<=System.currentTimeMillis());
     }
 
+    protected int compareTo(NamedItem item) {
+        return getName().toLowerCase().compareTo(item.getName().toLowerCase());
+    }
 
     /**********************************************************
      * parentDirectory
@@ -129,8 +132,6 @@ public abstract class NamedItem {
     protected Directory getParentDirectory() {
         return parentDirectory;
     }
-
-
 
     //TODO docs
     public Directory getRoot() {
