@@ -132,7 +132,7 @@ public abstract class NamedItem {
 
 
 
-
+    //TODO docs
     public Directory getRoot() {
         Directory rootDir = this.getParentDirectory();
         while (!rootDir.equals(rootDir.getParentDirectory())) {
@@ -141,5 +141,13 @@ public abstract class NamedItem {
         return rootDir;
     }
 
-
+    //TODO docs
+    public boolean isDirectOrIndirectChildOf(Directory dir) {
+        Directory parDir = getParentDirectory();
+        while (true) {
+            if (parDir.equals(dir)) return true;
+            else if (parDir.equals(parDir.getParentDirectory())) return false;
+            parDir = parDir.getParentDirectory();
+        }
+    }
 }
