@@ -3,6 +3,13 @@ import be.kuleuven.cs.som.annotate.Basic;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author  Quinten Steeland
+ * @author  Robbe Vanslambrouck
+ * @author  Wout Voet
+ */
+
 public class Directory extends NamedWritableItem {
 
     private ArrayList<NamedItem> contents = new ArrayList<>();

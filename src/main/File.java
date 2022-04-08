@@ -14,8 +14,9 @@ import java.util.Date;
  * @invar   Each file must have a valid modification time.
  *          | canHaveAsModificationTime(getModificationTime())
  * 
- * @author  Mark Dreesen
- * @author  Tommy Messelis
+ * @author  Quinten Steeland
+ * @author  Robbe Vanslambrouck
+ * @author  Wout Voet
  * @version 3.3
  * 
  * @note		See Coding Rule 48 for more info on the encapsulation of class invariants.

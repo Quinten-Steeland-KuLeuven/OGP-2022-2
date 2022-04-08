@@ -2,8 +2,11 @@ import be.kuleuven.cs.som.annotate.*;
 
 /**
  * A class for signaling illegal attempts to change a item.
- * 
- * @author 	Tommy Messelis
+ *
+ *
+ * @author  Quinten Steeland
+ * @author  Robbe Vanslambrouck
+ * @author  Wout Voet
  * @version	2.2
  */
 public class ItemNotWritableException extends RuntimeException {

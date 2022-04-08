@@ -3,7 +3,12 @@ import be.kuleuven.cs.som.annotate.Model;
 import be.kuleuven.cs.som.annotate.Raw;
 
 import java.util.Date;
-
+/**
+ *
+ * @author  Quinten Steeland
+ * @author  Robbe Vanslambrouck
+ * @author  Wout Voet
+ */
 public abstract class NamedWritableItem extends NamedItem {
 
     /**

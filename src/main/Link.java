@@ -1,6 +1,12 @@
 import be.kuleuven.cs.som.annotate.Basic;
 import be.kuleuven.cs.som.annotate.Raw;
 
+/**
+ *
+ * @author  Quinten Steeland
+ * @author  Robbe Vanslambrouck
+ * @author  Wout Voet
+ */
 public class Link extends NamedItem {
 
     /**
