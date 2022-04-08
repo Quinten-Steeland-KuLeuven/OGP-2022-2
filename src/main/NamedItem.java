@@ -51,11 +51,7 @@ public abstract class NamedItem {
     @Raw
     @Model
     protected void setName(String name) {
-        if (isValidName(name)) {
-            this.name = name;
-        } else {
-            this.name = getDefaultName();
-        }
+        this.name = isValidName(name) ? name : getDefaultName();
     }
 
     /**
