@@ -11,7 +11,14 @@ import org.junit.*;
 public class DirectoryTest {
 
     Date before, after;
-    Directory wrongName, dirStr;
+    Directory dirStr;
+    Directory dirStrBool;
+    Directory dirDirStr;
+    Directory dirDirStrBool;
+
+    File file1, file2;
+    Directory dir1, dir2;
+
     final String VALID_NAME = "Valid_dir-name1";
     final String INVALID_SYMBOL_NAME = "Valid_dir.txt";
     final String INVALID_EMPTY_NAME = "";
@@ -40,6 +47,9 @@ public class DirectoryTest {
         before = new Date();
         dirStr = new Directory(VALID_NAME);
         after = new Date();
+
+        file1 = new File("file1");
+        file2 = new File("file2");
 
     }
 
@@ -72,8 +82,56 @@ public class DirectoryTest {
         dirStr = new Directory(INVALID_SYMBOL_NAME);
         after = new Date();
         assertTrue(Directory.isValidName(dirStr.getName()));
+        assertTrue(dirStr.isWritable());
+        assertTrue(dirStr.isRoot());
+        assertNull(dirStr.getParentDirectory());
+        assertNull(dirStr.getModificationTime());
         assertFalse(before.after(dirStr.getCreationTime()));
         assertFalse(dirStr.getCreationTime().after(after));
+    }
+    @Test
+    public void testDirStrBool_LegalCase() {
+        before = new Date();
+        dirStrBool = new Directory(VALID_NAME, true);
+        after = new Date();
+        assertEquals(VALID_NAME, dirStrBool.getName());
+        assertTrue(dirStrBool.isWritable());
+        assertTrue(dirStrBool.isRoot());
+        assertNull(dirStrBool.getParentDirectory());
+        assertNull(dirStrBool.getModificationTime());
+        assertFalse(before.after(dirStrBool.getCreationTime()));
+        assertFalse(dirStrBool.getCreationTime().after(after));
+    }
+
+    @Test
+    public void testDirStrBool_IllegalCase() {
+        before = new Date();
+        dirStrBool = new Directory(INVALID_SYMBOL_NAME, false);
+        after = new Date();
+        assertTrue(Directory.isValidName(dirStrBool.getName()));
+        assertFalse(dirStrBool.isWritable());
+        assertTrue(dirStrBool.isRoot());
+        assertNull(dirStrBool.getParentDirectory());
+        assertNull(dirStrBool.getModificationTime());
+        assertFalse(before.after(dirStrBool.getCreationTime()));
+        assertFalse(dirStrBool.getCreationTime().after(after));
+    }
+
+    @Test
+    public void testAddNamedItem() {
+        dirStr = new Directory(VALID_NAME);
+        dirStr.addNamedItem(file1);
+        dirStr.addNamedItem(file2);
+        assertThrows(IllegalArgumentException.class,
+                () -> dirStr.addNamedItem(file1)
+        );
+
+        File file3 = new File("file2");
+        assertThrows(IllegalArgumentException.class,
+                () -> dirStr.addNamedItem(file3)
+        );
+
+        //TODO add dir loop test
     }
 
 

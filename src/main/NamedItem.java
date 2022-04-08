@@ -110,5 +110,22 @@ public abstract class NamedItem {
                 (date.getTime()<=System.currentTimeMillis());
     }
 
+    protected int compareTo(NamedItem item) {
+        return getName().toLowerCase().compareTo(item.getName().toLowerCase());
+    }
+
+    /**********************************************************
+     * parentDirectory
+     **********************************************************/
+
+    private Directory parentDirectory = null;
+
+    protected void setParentDir(Directory parentDirectory) {
+        this.parentDirectory = parentDirectory;
+    }
+
+    protected Directory getParentDirectory() {
+        return parentDirectory;
+    }
 
 }

@@ -103,7 +103,7 @@ public class File extends NamedWritableItem {
      *         | isValidName(result)
      */
     @Model
-    private static String getDefaultName() {
+    protected static String getDefaultName() {
         return "new_file";
     }
 
