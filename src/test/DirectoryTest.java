@@ -11,6 +11,10 @@ import org.junit.*;
 public class DirectoryTest {
 
     // name
+    Date before, after;
+    Directory wrongName, dirStr;
+    final String VALID_NAME = "Valid_dir-name1";
+    final String INVALID_NAME = "Valid_dir.txt";
     // times (mod and creation)
     // isWritable
     // isRoot
@@ -27,6 +31,29 @@ public class DirectoryTest {
     // containsDiskItemWithName
     // getIndexOf
     // hasAsItem
+
+    @Before
+    public void setUpFixture() {
+        before = new Date();
+        dirStr = new Directory(VALID_NAME);
+        after = new Date();
+
+    }
+
+    @Test
+    public void testCorrectName_LegalCase() {
+        assertEquals(VALID_NAME, dirStr.getName());
+
+    }
+
+    @Test
+    public void testCorrectName_ilLegalCase() {
+        before = new Date();
+        dirStr = new Directory(INVALID_NAME);
+        after = new Date();
+        assertNotEquals(INVALID_NAME, dirStr.getName());
+
+    }
 
 
 }
