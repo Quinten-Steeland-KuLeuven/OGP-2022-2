@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Directory extends NamedWritableItem {
 
@@ -16,17 +17,45 @@ public class Directory extends NamedWritableItem {
         setParentDir(dir);
     }
 
-    public  Directory(String name, boolean writable) {
+    public Directory(String name, boolean writable) {
         super(name, writable);
         setIsRoot(true);
     }
 
-    public  Directory(String name) {
+    public Directory(String name) {
         super(name, true);
         setIsRoot(true);
     }
 
     private void setIsRoot(boolean isRoot) {
         this.isRoot = isRoot;
+    }
+
+    private List<NamedItem> getContents() {
+        return contents;
+    }
+
+    public int getNbItems() {
+        return getContents().size();
+    }
+
+    public NamedItem getItemAt(int index) {
+        return getContents().get(index);
+    }
+
+    public NamedItem getItem(String name) {
+        return getContents().get(0); //TODO
+    }
+
+    public boolean containsDiskItemWithName(String name) {
+        return true; //TODO
+    }
+
+    public int getIndexOf(NamedItem item) {
+        return 0; //TODO
+    }
+
+    public boolean hasAsItem(NamedItem item) {
+        return true;
     }
 }
