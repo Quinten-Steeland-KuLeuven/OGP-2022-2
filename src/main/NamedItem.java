@@ -83,6 +83,7 @@ public abstract class NamedItem {
      */
     @Model
     private static String getDefaultName() {
+        //TODO: check for conflicting names in parent directory -> change default name to avoid conflicts
         return "new_item";
     }
 

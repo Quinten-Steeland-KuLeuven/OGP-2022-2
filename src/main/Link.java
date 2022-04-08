@@ -1,3 +1,6 @@
+import be.kuleuven.cs.som.annotate.Basic;
+import be.kuleuven.cs.som.annotate.Raw;
+
 public class Link extends NamedItem {
 
     /**
@@ -19,12 +22,35 @@ public class Link extends NamedItem {
      * @param   linkedItem
      *          The item the link links to.
      */
+    @Raw
     public Link(Directory dir, String name, NamedWritableItem linkedItem) {
         super(name, dir);
         this.linkedItem = linkedItem;
     }
 
-    public boolean isLinkValid() {
+    /**
+     * Getter for the linked item.
+     * @return  The item the link links to.
+     */
+    @Basic
+    public NamedWritableItem getLinkedItem() {
+        return linkedItem;
+    }
+
+    /**
+     * Getter for the link validness.
+     * @return True if valid link.
+     */
+    @Basic
+    public boolean isValidLink() {
+        return isValidLink;
+    }
+
+    private void setValidLink(boolean validLink) {
+        isValidLink = validLink;
+    }
+
+    public boolean isLinkStillValid() {
         if ( /*TODO: valid link */ true) {
             return true;
         } else {
