@@ -1,3 +1,5 @@
+import be.kuleuven.cs.som.annotate.Basic;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,4 +39,8 @@ public class Directory extends NamedWritableItem {
         this.isRoot = isRoot;
     }
 
+    @Basic
+    public boolean isRoot() {
+        return isRoot;
+    }
 }

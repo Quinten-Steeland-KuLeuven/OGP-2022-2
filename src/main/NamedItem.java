@@ -135,7 +135,7 @@ public abstract class NamedItem {
     //TODO docs
     public Directory getRoot() {
         Directory rootDir = this.getParentDirectory();
-        while (!rootDir.equals(rootDir.getParentDirectory())) {
+        while (!rootDir.isRoot()) {
             rootDir = rootDir.getParentDirectory();
         }
         return rootDir;
@@ -146,8 +146,9 @@ public abstract class NamedItem {
         Directory parDir = getParentDirectory();
         while (true) {
             if (parDir.equals(dir)) return true;
-            else if (parDir.equals(parDir.getParentDirectory())) return false;
+            else if (parDir.isRoot()) return false;
             parDir = parDir.getParentDirectory();
         }
     }
+
 }
