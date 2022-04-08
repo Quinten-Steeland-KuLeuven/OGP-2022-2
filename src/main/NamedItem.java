@@ -78,7 +78,7 @@ public abstract class NamedItem {
      *         | isValidName(result)
      */
     @Model
-    private static String getDefaultName() {
+    protected static String getDefaultName() {
         return "new_item";
     }
 
